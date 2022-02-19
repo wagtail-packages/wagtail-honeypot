@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags honeypot_tags %}
+
+{% block content %}
+  <h1>{{ page.title }}</h1>
+  {{ page.intro|richtext }}
+  <form action="{% pageurl page %}" method="POST">
+    {% csrf_token %}
+    {% honeypot_field %}
+    {{ form.as_p }}
+    <input type="submit" />
+  </form>
+{% endblock %}
+
+{% block extra_js %}
+  <script>
+    var whf_name = "whf_name";
+    var data_whf_name = "[data-" + whf_name + "]";
+
+    document.querySelectorAll(data_whf_name).forEach(function(el) {
+        el.classList.add(whf_name);
+        el.setAttribute("style", "position: absolute;top: 0;left: 0;margin-left: 100%;");
+    });
+  </script>
+{% endblock extra_js %}
+
+{% block extra_css %}
+  <style>
+    input[data-whf_name] {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-left: 100vw;
+    }
+  </style>
+{% endblock extra_css %}
