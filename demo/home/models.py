@@ -23,7 +23,6 @@ class FormField(AbstractFormField):
 class FormPage(HoneyPotMixin):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
-    # honeypot = models.BooleanField(default=False)
 
     content_panels = AbstractEmailForm.content_panels + [
         FieldPanel("intro", classname="full"),

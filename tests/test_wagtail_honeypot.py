@@ -2,6 +2,7 @@ from django.template import Context, Template
 from django.test import TestCase, override_settings
 
 from wagtail_honeypot.templatetags.wagtail_honeypot_tags import honeypot_field
+from wagtail.contrib.forms.models import FormSubmission
 
 
 class TestWagtailHoneypotResponses(TestCase):
@@ -78,3 +79,35 @@ class TestWagtailHoneypotTemplateTags(TestCase):
             '<input type="text" name="foo" id="foo" data-foo tabindex="-1" autocomplete="off">',
             rendered_template,
         )
+
+
+class TestWagtailHoneypotForm(TestCase):
+    fixtures = ["tests/fixtures/initialdata.json"]
+
+    def test_form_page_not_bot(self):
+        resp = self.client.post(
+            "/form-page/",
+            {
+                "name": "foo",
+                "email_address": "foo@foo.com",
+                "message": "foo",
+                "whf_name": "",
+            },
+        )
+        submissions_count = FormSubmission.objects.all().count()
+        self.assertEqual(submissions_count, 1)
+        self.assertContains(resp, "Test thank you message")
+
+    def test_form_page_is_bot(self):
+        resp = self.client.post(
+            "/form-page/",
+            {
+                "name": "foo",
+                "email_address": "foo@foo.com",
+                "message": "foo",
+                "whf_name": "foo",
+            },
+        )
+        submissions_count = FormSubmission.objects.all().count()
+        self.assertEqual(submissions_count, 0)
+        self.assertContains(resp, "Test thank you message")
