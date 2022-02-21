@@ -26,13 +26,13 @@ jobs:
           pip install -r requirements-dev.txt
       - name: Run flake8
         run: |
-          python flake8 demo
+          flake8 demo
       - name: Run isort
         run: |
-          python isort demo --check
+          isort demo --check
       - name: Run black demo
         run: |
-          python black domo --check
+          black demo --check
       - name: Run Tests
         run: |
-          python manage.py test
+          manage.py test
