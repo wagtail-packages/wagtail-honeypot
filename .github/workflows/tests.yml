@@ -32,7 +32,7 @@ jobs:
           poetry run flake8 .
       - name: Run isort
         run: |
-          poetry run isort --recursive --check .
+          poetry run isort --check .
       - name: Run black
         run: |
           poetry run black --check .

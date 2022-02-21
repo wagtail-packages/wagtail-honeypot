@@ -1,8 +1,8 @@
 from django.template import Context, Template
 from django.test import TestCase, override_settings
+from wagtail.contrib.forms.models import FormSubmission
 
 from wagtail_honeypot.templatetags.wagtail_honeypot_tags import honeypot_field
-from wagtail.contrib.forms.models import FormSubmission
 
 
 class TestWagtailHoneypotResponses(TestCase):
