@@ -1,12 +1,11 @@
 from django.template import Context, Template
 from django.test import TestCase, override_settings
 from wagtail.contrib.forms.models import FormSubmission
-
 from wagtail_honeypot.templatetags.wagtail_honeypot_tags import honeypot_field
 
 
 class TestWagtailHoneypotResponses(TestCase):
-    fixtures = ["tests/fixtures/initialdata.json"]
+    fixtures = ["initialdata.json"]
 
     def test_home_page(self):
         home_page = self.client.get("/")
@@ -82,7 +81,7 @@ class TestWagtailHoneypotTemplateTags(TestCase):
 
 
 class TestWagtailHoneypotForm(TestCase):
-    fixtures = ["tests/fixtures/initialdata.json"]
+    fixtures = ["initialdata.json"]
 
     def test_form_page_not_bot(self):
         resp = self.client.post(

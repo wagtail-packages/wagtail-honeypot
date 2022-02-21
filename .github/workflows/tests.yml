@@ -12,7 +12,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.9]
 
     steps:
       - uses: actions/checkout@v2
@@ -23,18 +23,18 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install -U pip
-          pip install -r requirements.test.dev
+          pip install -r requirements-dev.txt
         env:
           POETRY_VIRTUALENVS_CREATE: false
       - name: Run flake8
         run: |
-          python flake8 .
+          python flake8 demo
       - name: Run isort
         run: |
-          python isort --check .
-      - name: Run black
+          python isort demo --check
+      - name: Run black demo
         run: |
-          python black --check .
+          python black domo --check
       - name: Run Tests
         run: |
           python manage.py test

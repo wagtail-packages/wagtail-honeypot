@@ -8,7 +8,6 @@ from wagtail.admin.edit_handlers import (
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.core.fields import RichTextField
 from wagtail.core.models import Page
-
 from wagtail_honeypot.models import HoneyPotMixin
 
 
