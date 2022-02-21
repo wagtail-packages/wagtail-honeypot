@@ -24,15 +24,15 @@ jobs:
         run: |
           pip install -U pip setuptools wheel
           pip install -r requirements-dev.txt
-      - name: Run flake8
+      - name: Flake8
         run: |
           flake8 demo
-      - name: Run isort
+      - name: Isort
         run: |
           isort demo --check
-      - name: Run black demo
+      - name: Black demo
         run: |
           black demo --check
       - name: Run Tests
         run: |
-          manage.py test
+          python demo/manage.py test
