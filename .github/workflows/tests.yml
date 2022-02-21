@@ -22,10 +22,8 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install Dependencies
         run: |
-          pip install -U pip
+          pip install -U pip setuptools wheel
           pip install -r requirements-dev.txt
-        env:
-          POETRY_VIRTUALENVS_CREATE: false
       - name: Run flake8
         run: |
           python flake8 demo
