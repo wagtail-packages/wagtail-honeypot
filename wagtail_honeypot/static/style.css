@@ -1,0 +1,6 @@
+input[data-whf_name] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-left: 100vw;
+}
