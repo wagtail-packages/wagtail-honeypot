@@ -52,6 +52,18 @@ pip install wagtail-honeypot
 
 ## Wagtail Setup
 
+### Settings
+
+Add the package to your settings
+
+```python
+INSTALLED_APPS = [
+    ...
+    "wagtail_honeypot",
+    ...
+]
+```
+
 ### Honeypot Text Field
 
 ```html
