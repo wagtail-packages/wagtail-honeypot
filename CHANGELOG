@@ -1,0 +1,9 @@
+# Changelog
+All notable changes to this project will be documented in this file.
+
+## [Unreleased]
+- Update README.md <https://github.com/nickmoreton/wagtail-honeypot/pull/7>
+
+## [0.2.0] - 2022-02-24
+### Added
+- Initial release
