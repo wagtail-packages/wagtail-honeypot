@@ -1,12 +1,12 @@
 # Wagtail Honeypot
 
-Use this package to add optional honeypot proection to your Wagtail forms.
+Use this package to add optional honeypot protection to your Wagtail forms.
 
-Honey pot protection is a way to trick bots into submitting data in fields that should remain empty. The package prvides a text field that should remain empty and checks a time interval between the form being displayed and submitted. The defualt interval is 3 seconds. If the form is submitted before the interval expires the submission is ignored.
+Honeypot protection is a way to trick bots into submitting data in fields that should remain empty. The package provides a text field that should remain empty and checks a time interval between the form being displayed and submitted. The default interval is 3 seconds. If the form is submitted before the interval expires the submission is ignored.
 
 ## How it works
 
-When the Wagtail Form is submitted, and the honeypot protection is enabled the honeypot fields & values are in the `POST` data.
+When the Wagtail Form is submitted and the honeypot protection is enabled, the honeypot fields & values are in the `POST` data.
 
 - If the fields and values are valid or the Honeypot feature is not enabled then the form is submitted normally.
 - If the Honeypot feature is enabled and the validation fails the form is not processed but visibly and to a bot the form was successfully submitted.
@@ -114,7 +114,7 @@ The mixin will add a honeypot field to your form page model.
 
 `honeypot = models.BooleanField(default=False, verbose_name="Honeypot Enabled")`
 
- It also adds a form panel you can use.
+It also adds a form panel you can use.
 
 If you follow the official Wagtail docs for the [Form Builder](https://docs.wagtail.org/en/stable/reference/contrib/forms/index.html) your form should look something like this...
 
@@ -160,9 +160,9 @@ View the newly created form page. You will see that the honeypot field is visibl
 
 You can try it out by submitting the form with the honeypot field set to any value. It won't save the form submission.
 
-#### Use css to hide the honeypot field
+#### Use CSS to hide the honeypot field
 
-Add the following css style to your own sites css...
+Add the following CSS style to your own site's CSS...
 
 ```css
 input[data-whf_name] {
@@ -173,7 +173,7 @@ input[data-whf_name] {
 }
 ```
 
-#### Use javascript to hide the honeypot field
+#### Use Javascript to hide the honeypot field
 
 ```javascript
 var whf_name = "whf_name";
@@ -185,8 +185,8 @@ document.querySelectorAll(data_whf_name).forEach(function(el) {
 });
 ```
 
-The end result is the field should be visibly hidden and not be available to receive any value form a site visitor.
+The end result is the field should be visibly hidden and not be available to receive any value from a site visitor.
 
- When rendered, the fields will have the html attributes `tabindex="-1" autocomplete="off"` to prevent a site visitor from using the tab key to move to the field and disable any autocomplete browser functions.
+When rendered, the fields will have the HTML attributes `tabindex="-1" autocomplete="off"` to prevent a site visitor from using the tab key to move to the field and disable any autocomplete browser functions.
 
 A more complete example is [form_page.html](wagtail_honeypot/templates/wagtail_honeypot_test/form_page.html) from the package test files.
