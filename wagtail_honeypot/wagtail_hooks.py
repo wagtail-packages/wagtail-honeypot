@@ -1,6 +1,11 @@
 from django.urls import include, path
 from django.views.i18n import JavaScriptCatalog
-from wagtail.core import hooks
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail import hooks
+else:
+    from wagtail.core import hooks
 
 
 @hooks.register("register_admin_urls")

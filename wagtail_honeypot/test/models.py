@@ -1,15 +1,29 @@
 from modelcluster.fields import ParentalKey
-from wagtail.admin.edit_handlers import (
-    FieldPanel,
-    FieldRowPanel,
-    InlinePanel,
-    MultiFieldPanel,
-    ObjectList,
-    TabbedInterface,
-)
+from wagtail import VERSION as WAGTAIL_VERSION
 from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
-from wagtail.core.fields import RichTextField
-from wagtail.core.models import Page
+
+if WAGTAIL_VERSION >= (3, 0):
+    from wagtail.admin.panels import (
+        FieldPanel,
+        FieldRowPanel,
+        InlinePanel,
+        MultiFieldPanel,
+        ObjectList,
+        TabbedInterface,
+    )
+    from wagtail.fields import RichTextField
+    from wagtail.models import Page
+else:
+    from wagtail.admin.edit_handlers import (
+        FieldPanel,
+        FieldRowPanel,
+        InlinePanel,
+        MultiFieldPanel,
+        ObjectList,
+        TabbedInterface,
+    )
+    from wagtail.core.fields import RichTextField
+    from wagtail.core.models import Page
 
 from wagtail_honeypot.models import HoneypotMixin
 

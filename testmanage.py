@@ -7,7 +7,7 @@ import sys
 import warnings
 
 from django.core.management import execute_from_command_line
-
+from wagtail import VERSION as WAGTAIL_VERSION
 
 os.environ["DJANGO_SETTINGS_MODULE"] = "wagtail_honeypot.test.settings"
 
@@ -56,7 +56,10 @@ def runtests():
     try:
         execute_from_command_line(argv)
     finally:
-        from wagtail.tests.settings import STATIC_ROOT, MEDIA_ROOT
+        if WAGTAIL_VERSION >= (3, 0):
+            from wagtail.test.settings import MEDIA_ROOT, STATIC_ROOT
+        else:
+            from wagtail.tests.settings import MEDIA_ROOT, STATIC_ROOT
 
         shutil.rmtree(STATIC_ROOT, ignore_errors=True)
         shutil.rmtree(MEDIA_ROOT, ignore_errors=True)

@@ -2,7 +2,13 @@
 
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.fields
+from wagtail import VERSION as WAGTAIL_VERSION
+
+if WAGTAIL_VERSION >= (3, 0):
+    import wagtail.fields
+else:
+    import wagtail.core.fields
+
 from django.db import migrations, models
 
 
@@ -10,9 +16,14 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ("wagtailcore", "0066_collection_management_permissions"),
-    ]
+    if WAGTAIL_VERSION >= (2, 15):
+        dependencies = [
+            ("wagtailcore", "0066_collection_management_permissions"),
+        ]
+    else:
+        dependencies = [
+            ("wagtailcore", "0062_comment_models_and_pagesubscription"),
+        ]
 
     operations = [
         migrations.CreateModel(
@@ -51,8 +62,18 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("honeypot", models.BooleanField(default=False)),
-                ("intro", wagtail.core.fields.RichTextField(blank=True)),
-                ("thank_you_text", wagtail.core.fields.RichTextField(blank=True)),
+                (
+                    "intro",
+                    wagtail.fields.RichTextField(blank=True)
+                    if WAGTAIL_VERSION >= (3, 0)
+                    else wagtail.core.fields.RichTextField(blank=True),
+                ),
+                (
+                    "thank_you_text",
+                    wagtail.fields.RichTextField(blank=True)
+                    if WAGTAIL_VERSION >= (3, 0)
+                    else wagtail.core.fields.RichTextField(blank=True),
+                ),
             ],
             options={
                 "abstract": False,
