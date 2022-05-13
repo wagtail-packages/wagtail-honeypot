@@ -6,7 +6,6 @@ from setuptools import find_packages, setup
 
 from wagtail_honeypot import __version__
 
-
 this_directory = path.abspath(path.dirname(__file__))
 with open(path.join(this_directory, "README.md"), encoding="utf-8") as f:
     long_description = f.read()
@@ -16,7 +15,7 @@ setup(
     version=__version__,
     description="wWagtail honeypot package",
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     author="Nick Moreton",
     author_email="nickmoreton@me.com",
     url="",
@@ -41,8 +40,9 @@ setup(
         "Framework :: Django :: 4.0",
         "Framework :: Wagtail",
         "Framework :: Wagtail :: 2",
+        "Framework :: Wagtail :: 3",
     ],
-    install_requires=["Django>=3.0,<4.0", "Wagtail>=2.14,<2.17"],
+    install_requires=["Django>=3.0,<4.1", "Wagtail>=2.14,<4.0"],
     extras_require={
         "testing": ["flake8", "isort", "black", "coverage", "tox"],
     },

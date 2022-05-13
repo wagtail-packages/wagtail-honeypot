@@ -2,7 +2,20 @@
 
 import django.db.models.deletion
 import modelcluster.fields
-import wagtail.core.fields
+
+try:
+    import wagtail.fields as wagtail_fields
+
+    dependencies = [
+        ("wagtailcore", "0066_collection_management_permissions"),
+    ]
+except ImportError:
+    import wagtail.core.fields as wagtail_fields
+
+    dependencies = [
+        ("wagtailcore", "0062_comment_models_and_pagesubscription"),
+    ]
+
 from django.db import migrations, models
 
 
@@ -10,9 +23,7 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ("wagtailcore", "0066_collection_management_permissions"),
-    ]
+    dependencies = dependencies
 
     operations = [
         migrations.CreateModel(
@@ -51,8 +62,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("honeypot", models.BooleanField(default=False)),
-                ("intro", wagtail.core.fields.RichTextField(blank=True)),
-                ("thank_you_text", wagtail.core.fields.RichTextField(blank=True)),
+                ("intro", wagtail_fields.RichTextField(blank=True)),
+                ("thank_you_text", wagtail_fields.RichTextField(blank=True)),
             ],
             options={
                 "abstract": False,
