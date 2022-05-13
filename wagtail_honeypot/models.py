@@ -2,7 +2,12 @@ import time
 
 from django.conf import settings
 from django.db import models
-from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+
+try:
+    from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+except ImportError:
+    from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+
 from wagtail.contrib.forms.models import AbstractEmailForm
 
 
