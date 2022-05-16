@@ -118,7 +118,11 @@ It also adds a form panel you can use.
 
 If you follow the official Wagtail docs for the [Form Builder](https://docs.wagtail.org/en/stable/reference/contrib/forms/index.html) your form should look something like this...
 
+Note: if you site uses Wagtail v3.0+ you may need to use the new import paths for fields and panels. [Wagtail release notes](https://docs.wagtail.org/en/stable/releases/3.0.html)
+
 ```python
+# your imports here, see note ^^
+
 class FormPage(HoneypotMixin):  # <-- add the mixin
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
@@ -190,3 +194,12 @@ The end result is the field should be visibly hidden and not be available to rec
 When rendered, the fields will have the HTML attributes `tabindex="-1" autocomplete="off"` to prevent a site visitor from using the tab key to move to the field and disable any autocomplete browser functions.
 
 A more complete example is [form_page.html](wagtail_honeypot/templates/wagtail_honeypot_test/form_page.html) from the package test files.
+
+
+## Versions
+
+Wagtail honey pot can be used in environments:
+
+- Python 3.7+
+- Django 3.0+
+- Wagtail 2.14+
