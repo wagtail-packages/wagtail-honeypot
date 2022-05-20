@@ -2,8 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
-- Update README.md <https://github.com/nickmoreton/wagtail-honeypot/pull/7>
-- Add CHANGELOG <https://github.com/nickmoreton/wagtail-honeypot/pull/8>
+- [#14](https://github.com/nickmoreton/wagtail-honeypot/pull/14) Add Wagtail 3.0 support
 
 ## [0.2.0] - 2022-02-24
 ### Added
