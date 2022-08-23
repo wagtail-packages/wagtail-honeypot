@@ -2,14 +2,15 @@
 
 import django.db.models.deletion
 import modelcluster.fields
+from wagtail import VERSION as WAGTAIL_VERSION
 
-try:
+if WAGTAIL_VERSION > (3, 0):
     import wagtail.fields as wagtail_fields
 
     dependencies = [
         ("wagtailcore", "0066_collection_management_permissions"),
     ]
-except ImportError:
+else:
     import wagtail.core.fields as wagtail_fields
 
     dependencies = [
