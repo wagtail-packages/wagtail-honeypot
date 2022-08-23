@@ -195,7 +195,6 @@ When rendered, the fields will have the HTML attributes `tabindex="-1" autocompl
 
 A more complete example is [form_page.html](wagtail_honeypot/templates/wagtail_honeypot_test/form_page.html) from the package test files.
 
-
 ## Versions
 
 Wagtail honey pot can be used in environments:
