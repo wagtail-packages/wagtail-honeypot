@@ -1,0 +1,5 @@
+[flake8]
+# E501: Line too long
+# W503: line break before binary operator (superseded by W504 line break after binary operator)
+ignore = E501,W503
+exclude = migrations,node_modules
