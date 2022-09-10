@@ -40,7 +40,7 @@ class FormPage(HoneypotMixin):
         ),
     ]
 
-    # add a edit_handler to enable the Honeypot tab
+    """add a edit_handler to enable the Honeypot tab"""
     edit_handler = TabbedInterface(
         [
             ObjectList(content_panels, heading="Content"),
@@ -51,3 +51,6 @@ class FormPage(HoneypotMixin):
             ),
         ]
     )
+
+    """OR add a the honeypot checkbox without the extra tab"""
+    # content_panels = content_panels + HoneypotMixin.honeypot_panels
