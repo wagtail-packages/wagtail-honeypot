@@ -1,7 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [Unreleased]
+## [1.0.0] - 2022-09-10
+- [#15](https://github.com/nickmoreton/wagtail-honeypot/pull/15) Add Wagtail 3/4 support and improve developer documentation and tools
+
+## [Yanked]
 - [#14](https://github.com/nickmoreton/wagtail-honeypot/pull/14) Add Wagtail 3.0 support
 
 ## [0.2.0] - 2022-02-24

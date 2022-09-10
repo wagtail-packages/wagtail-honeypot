@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+<!-- add honeypot template tags -->
+{% load wagtailcore_tags honeypot_tags %}
+
+{% block content %}
+    
+    <div class="nice-padding">
+        <h1 class="nice-padding">{{ page.title }}</h1>
+
+        {{ page.intro|richtext }}
+
+        <form action="{% pageurl page %}" method="POST">
+            {% csrf_token %}
+        
+            {{ form.as_p }}
+
+            <!-- add the honeypot fields to your form -->
+            {% honeypot_fields %}
+            
+            <input type="submit" class="btn">
+        </form>
+    </div>
+
+{% endblock content %}
