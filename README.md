@@ -88,19 +88,19 @@ It also adds a form panel you can use.
 
 If you follow the official Wagtail docs for the [Form Builder](https://docs.wagtail.org/en/stable/reference/contrib/forms/index.html) your form should look something like this...
 
-Note: if you site uses Wagtail v3.0+ you may need to use the new import paths for fields and panels. [Wagtail release notes](https://docs.wagtail.org/en/stable/releases/3.0.html)
-
 ```python
-# your imports here, see note ^^
+# wagtail form imports here
 
-class FormPage(HoneypotMixin):  # <-- add the mixin
+class FormPage(HoneypotMixin):
+    # FormPage should inherit from HoneypotMixin
+
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel("intro", classname="full"),
+        FieldPanel("intro"),
         InlinePanel("form_fields", label="Form fields"),
-        FieldPanel("thank_you_text", classname="full"),
+        FieldPanel("thank_you_text"),
         MultiFieldPanel(
             [
                 FieldRowPanel(
@@ -120,10 +120,15 @@ class FormPage(HoneypotMixin):  # <-- add the mixin
         [
             ObjectList(content_panels, heading="Content"),
             ObjectList(HoneypotMixin.honeypot_panels, heading="Honeypot"),
-            ObjectList(Page.promote_panels, heading="Promote"),
-            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
+            ObjectList(HoneypotMixin.promote_panels, heading="Promote"),
+            ObjectList(
+                HoneypotMixin.settings_panels, heading="Settings", classname="settings"
+            ),
         ]
     )
+
+    # OR add a the honeypot checkbox without the extra tab
+    content_panels = content_panels + HoneypotMixin.honeypot_panels
 ```
 
 You'll need to run `makemigrations` and `migrate` here

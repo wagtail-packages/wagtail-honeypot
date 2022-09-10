@@ -19,6 +19,8 @@ class FormField(AbstractFormField):
 
 
 class FormPage(HoneypotMixin):
+    """FormPage should inherit from HoneypotMixin"""
+
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
