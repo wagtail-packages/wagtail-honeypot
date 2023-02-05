@@ -1,0 +1,82 @@
+[
+  {
+    "model": "tests_testapp.formfield",
+    "pk": 1,
+    "fields": {
+      "sort_order": 0,
+      "clean_name": "name",
+      "label": "Name",
+      "field_type": "singleline",
+      "required": true,
+      "choices": "",
+      "default_value": "",
+      "help_text": "",
+      "page": 4
+    }
+  },
+  {
+    "model": "tests_testapp.formfield",
+    "pk": 3,
+    "fields": {
+      "sort_order": 1,
+      "clean_name": "email_address",
+      "label": "Email Address",
+      "field_type": "email",
+      "required": true,
+      "choices": "",
+      "default_value": "",
+      "help_text": "",
+      "page": 4
+    }
+  },
+  {
+    "model": "tests_testapp.formfield",
+    "pk": 4,
+    "fields": {
+      "sort_order": 2,
+      "clean_name": "message",
+      "label": "Message",
+      "field_type": "multiline",
+      "required": true,
+      "choices": "",
+      "default_value": "",
+      "help_text": "",
+      "page": 4
+    }
+  },
+  {
+    "model": "wagtailcore.page",
+    "pk": 4,
+    "fields": {
+      "path": "000100010001",
+      "depth": 3,
+      "numchild": 0,
+      "live": true,
+      "has_unpublished_changes": false,
+      "title": "FormPage",
+      "draft_title": "FormPage",
+      "slug": "formpage",
+      "content_type": [
+        "tests_testapp",
+        "formpage"
+      ],
+      "url_path": "/home/formpage/",
+      "seo_title": "",
+      "show_in_menus": false,
+      "search_description": "",
+      "alias_of": null
+    }
+  },
+  {
+    "model": "tests_testapp.formpage",
+    "pk": 4,
+    "fields": {
+      "to_address": "recipient@localhost",
+      "from_address": "sender@localhost",
+      "subject": "Testapp Test Form",
+      "honeypot": false,
+      "intro": "<p data-block-key=\"ceuax\">Please enter some details below</p>",
+      "thank_you_text": "<p data-block-key=\"e5osm\">Thank you for your message</p>"
+    }
+  }
+]

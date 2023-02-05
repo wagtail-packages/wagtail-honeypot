@@ -2,7 +2,7 @@
 
 Use this package to add optional honeypot protection to your Wagtail forms.
 
-![Alt text](sample.jpg?raw=true "Title")
+![Alt text](docs/sample.jpg?raw=true "Title")
 
 Honeypot protection is a way to trick bots into submitting data in fields that should remain empty. The package provides a text field that should remain empty and checks a time interval between the form being displayed and submitted. The default interval is 3 seconds. If the form is submitted before the interval expires the submission is ignored.
 
@@ -177,8 +177,8 @@ A more complete example is [form_page.html](wagtail_honeypot/templates/wagtail_h
 Wagtail honey pot can be used in environments:
 
 - Python 3.7+
-- Django 3.0+
-- Wagtail 2.14+
+- Django 3.2+
+- Wagtail 4.1+
 
 ## Contributions
 

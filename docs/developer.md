@@ -44,11 +44,19 @@ HONEYPOT_INTERVAL = 1 # seconds
 
 ## Development Setup
 
-There is a [sandbox](../sandbox/) app provided that is a fully configured minimal setup using Wagtail v4.
+There is a [testapp](../tests/testapp/) provided that is a fully configured minimal setup using Wagtail v4.2
+
+Start the app:
+
+```bash
+make migrate
+make superuser
+make run
+```
 
 It's already initialised with admin login details of Username: `admin` Password: `changeme`
 
-To run the sandbox run `make run` and view the site at `http://localhost:8000` or add `/admin` to login.
+View the site at `http://localhost:8000` or add `/admin` to login.
 
 You can see if emails are sent or not via the console.
 
