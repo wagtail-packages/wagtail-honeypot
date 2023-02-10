@@ -1,2 +1,4 @@
+{% if enabled %}
 <input type="text" name="{{ honeypot_name }}" id="{{ honeypot_name }}" data-{{ honeypot_name }} tabindex="-1" autocomplete="off">
 <input type="hidden" name="{{ honeypot_time }}" id="{{ honeypot_time }}" data-{{ honeypot_time }} tabindex="-1" autocomplete="off" value="{{ time }}">
+{% endif %}

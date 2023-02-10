@@ -13,31 +13,35 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Framework :: Django",
-    "Framework :: Django :: 3.0",
-    "Framework :: Django :: 3.1",
     "Framework :: Django :: 3.2",
     "Framework :: Django :: 4.0",
     "Framework :: Django :: 4.1",
     "Framework :: Wagtail",
-    "Framework :: Wagtail :: 2",
-    "Framework :: Wagtail :: 3",
     "Framework :: Wagtail :: 4",
 ]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-wagtail = ">=2.14"
-Django = ">=3.0"
+wagtail = ">=4.1"
 
-[tool.poetry.dev-dependencies]
-pytest = "^5.2"
-flake8 = "^5.0.4"
-isort = "^5.10.1"
-black = "^22.6.0"
-coverage = "^6.4.4"
-tox = "^3.25.1"
-pre-commit = "^2.20.0"
+[tool.poetry.group.dev.dependencies]
+black = "^23.1.0"
+tox = "^4.4.4"
+coverage = "^7.1.0"
+
+[tool.poetry.group.dev.dependencies.flake8]
+version = ">=6.0.0"
+python = "^3.8.1"
+
+[tool.poetry.group.dev.dependencies.isort]
+version = ">=5.0.0"
+python = "^3.8"
+
+[tool.poetry.group.dev.dependencies.pre-commit]
+version = ">=3.0.0"
+python = "^3.8"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

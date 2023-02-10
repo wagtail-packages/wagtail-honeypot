@@ -2,13 +2,7 @@ import time
 
 from django.conf import settings
 from django.db import models
-from wagtail import VERSION as WAGTAIL_VERSION
-
-if WAGTAIL_VERSION > (3, 0):
-    from wagtail.admin.panels import FieldPanel, MultiFieldPanel
-else:
-    from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
-
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm
 
 
