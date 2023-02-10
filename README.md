@@ -14,7 +14,7 @@ When the Wagtail Form is submitted and the honeypot protection is enabled, the h
 
 If the form is submitted with content in the hidden field or before the interval expires the submission is ignored.
 
-- No email is be sent
+- No email is sent
 - No submission is stored
 - The thank you page is always shown if available.
 
@@ -38,28 +38,28 @@ INSTALLED_APPS = [
 
 **A working minimal Wagtail example can inspected see [here](./tests/testapp/)**
 
-### Use The Honeypot Model Mixin
+### Use The Honeypot Model Mixins
 
-The mixin adds a honeypot enable/disable checkbox to your form page model.
-
-`honeypot = models.BooleanField(default=False, verbose_name="Honeypot Enabled")`
-
-It also adds a form panel you can use.
+The mixins add a honeypot enable/disable checkbox to your form page model and custom form submission method.
 
 If you follow the official Wagtail docs for the [Form Builder](https://docs.wagtail.org/en/stable/reference/contrib/forms/index.html) your form should look something like this...
 
 ```python
-from wagtail_honeypot.models import HoneypotMixin
+from wagtail_honeypot.models import (
+    HoneypotFormMixin, HoneypotFormSubmissionMixin
+)
 
-class FormPage(HoneypotMixin):
+class FormField(AbstractFormField):
+    page = ParentalKey("FormPage", related_name="form_fields")
 
+class FormPage(HoneypotFormMixin, HoneypotFormSubmissionMixin):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
     content_panels = AbstractEmailForm.content_panels + [
-        FieldPanel("intro"),
+        FieldPanel("intro", classname="full"),
         InlinePanel("form_fields", label="Form fields"),
-        FieldPanel("thank_you_text"),
+        FieldPanel("thank_you_text", classname="full"),
         MultiFieldPanel(
             [
                 FieldRowPanel(
@@ -74,20 +74,27 @@ class FormPage(HoneypotMixin):
         ),
     ]
 
+    honeypot_panels = [
+        MultiFieldPanel(
+            [FieldPanel("honeypot")],
+            heading="Reduce Form Spam",
+        )
+    ]
+
     edit_handler = TabbedInterface(
         [
             ObjectList(content_panels, heading="Content"),
-            # Honeypot Tab
-            ObjectList(HoneypotMixin.honeypot_panels, heading="Honeypot"),
-            ObjectList(HoneypotMixin.promote_panels, heading="Promote"),
-            ObjectList(
-                HoneypotMixin.settings_panels, heading="Settings", classname="settings"
-            ),
+            ObjectList(honeypot_panels, heading="Honeypot"),
+            ObjectList(Page.promote_panels, heading="Promote"),
+            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
         ]
     )
+```
 
-    # OR add a the honeypot checkbox without the extra tab
-    content_panels = content_panels + HoneypotMixin.honeypot_panels
+If you prefer you could add the honeypot field to the content_panels rather than a new Tab
+
+```python
+content_panels = content_panels + honeypot_panels
 ```
 
 You'll need to run `makemigrations` and `migrate` here
@@ -118,36 +125,27 @@ View the newly created form page. You will see that the honeypot field is visibl
 
 You can try it out by submitting the form with the honeypot field set to any value. It won't save the form submission or send it as an email if you have enabled that in your form page.
 
-### Use CSS to hide the honeypot field
+### Use CSS & JS to hide the honeypot field
 
-Add the following CSS style to your own site's CSS...
+Add the following CSS and JS to your form template
 
-```css
-input[data-whf_name] {
-    position: absolute;
-    top: 0;
-    left: 0;
-    margin-left: 100vw;
-}
-```
+```html
+{% block extra_js %}
+<script src="{% static 'js/honeypot.js' %}"></script>
+{% endblock extra_js %}
 
-### and/or Use Javascript to hide the honeypot field
-
-```javascript
-var whf_name = "whf_name";
-var data_whf_name = "[data-" + whf_name + "]";
-
-document.querySelectorAll(data_whf_name).forEach(function(el) {
-    el.classList.add(whf_name);
-    el.setAttribute("style", "position: absolute;top: 0;left: 0;margin-left: 100%;");
-});
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/honeypot.css' %}">
+{% endblock extra_css %}
 ```
 
 The end result is the field should be visibly hidden and not be available to receive any value from a site visitor.
 
 When rendered, the fields will have the HTML attributes `tabindex="-1" autocomplete="off"` to prevent a site visitor from using the tab key to move to the field and disable any autocomplete browser functions.
 
-A more complete example is [form_page.html](wagtail_honeypot/templates/wagtail_honeypot_test/form_page.html) from the package test files.
+A more complete example is [form_page.html](wagtail_honeypot/templates/wagtail_honeypot_test/form_page.html) in the test app.
+
+[View Developer Docs](docs/developer.md) for detailed help.
 
 ## Versions
 
@@ -159,4 +157,4 @@ Wagtail honey pot can be used in environments:
 
 ## Contributions
 
-Contributions or ideas to improve this package are welcome. [See Developer Docs](docs/developer.md)
+Contributions or ideas to improve this package are welcome.
