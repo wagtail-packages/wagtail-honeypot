@@ -4,47 +4,21 @@ Use this package to add optional honeypot protection to your Wagtail forms.
 
 ![Alt text](docs/sample.jpg?raw=true "Title")
 
-Honeypot protection is a way to trick bots into submitting data in fields that should remain empty. The package provides a text field that should remain empty and checks a time interval between the form being displayed and submitted. The default interval is 3 seconds. If the form is submitted before the interval expires the submission is ignored.
+It should help to reduce form spam by tricking bots into submitting data in fields that should remain empty.
+
+The package provides validation that a hidden text field that should remain empty and checks a time interval between the form being displayed and submitted.
 
 ## How it works
 
-When the Wagtail Form is submitted and the honeypot protection is enabled, the honeypot fields & values are in the `POST` data.
+When the Wagtail Form is submitted and the honeypot protection is enabled, the honeypot fields & values are available in the `POST` data.
 
-- If the fields and values are valid or the Honeypot feature is not enabled then the form is submitted normally.
-- If the Honeypot feature is enabled and the validation fails the form is not processed but visibly and to a bot the form was successfully submitted.
+If the form is submitted with content in the hidden field or before the interval expires the submission is ignored.
 
-```python
-# process_form_submission is overriding the function in AbstractEmailForm
+- No email is be sent
+- No submission is stored
+- The thank you page is always shown if available.
 
-def process_form_submission(self, form):
-    honeypot_name = getattr(settings, "HONEYPOT_NAME", "whf_name")
-    honeypot_time = getattr(settings, "HONEYPOT_TIME", "whf_time")
-    honeypot_interval = getattr(settings, "HONEYPOT_INTERVAL", 3)
-
-    # honey pot disabled
-    if not self.honeypot:
-        return super().process_form_submission(form)
-
-    # honeypot enabled
-    score = []
-    if honeypot_name in form.data and honeypot_time in form.data:
-        score.append(form.data[honeypot_name] == "")
-        score.append(self.time_diff(form.data[honeypot_time], honeypot_interval))
-        return (
-            super().process_form_submission(form)
-            if len(score) and all(score)
-            else None
-        )
-
-@staticmethod
-def time_diff(value, interval):
-    now_time = str(time.time()).split(".")[0]
-    diff = abs(int(now_time) - int(value))
-    return True if diff > interval else False
-
-```
-
-You can provide your own `process_form_submission` method if you need an alternative behaviour.
+View the custom [HoneypotMixin](./wagtail_honeypot/models.py) for more information.
 
 ## Installation and setup
 
@@ -62,25 +36,11 @@ INSTALLED_APPS = [
 ]
 ```
 
-- A fully working minimal Wagtail site can inspected see [here](/sandbox/)
-
-### Add The Honeypot Template Tag to your form page template
-
-To render the honeypot fields in your form page template use the provided template tag.
-
-```python
-{% load honeypot_tags %}  # load the template tag
-
-<form>
-...
-{% honeypot_fields %}  # add the honeypot fields to your form
-...
-</form>
-```
+**A working minimal Wagtail example can inspected see [here](./tests/testapp/)**
 
 ### Use The Honeypot Model Mixin
 
-The mixin will add a honeypot enable/disable checkbox to your form page model.
+The mixin adds a honeypot enable/disable checkbox to your form page model.
 
 `honeypot = models.BooleanField(default=False, verbose_name="Honeypot Enabled")`
 
@@ -89,10 +49,9 @@ It also adds a form panel you can use.
 If you follow the official Wagtail docs for the [Form Builder](https://docs.wagtail.org/en/stable/reference/contrib/forms/index.html) your form should look something like this...
 
 ```python
-# wagtail form imports here
+from wagtail_honeypot.models import HoneypotMixin
 
 class FormPage(HoneypotMixin):
-    # FormPage should inherit from HoneypotMixin
 
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
@@ -115,10 +74,10 @@ class FormPage(HoneypotMixin):
         ),
     ]
 
-    # add a edit_handler to enable the Honeypot tab
     edit_handler = TabbedInterface(
         [
             ObjectList(content_panels, heading="Content"),
+            # Honeypot Tab
             ObjectList(HoneypotMixin.honeypot_panels, heading="Honeypot"),
             ObjectList(HoneypotMixin.promote_panels, heading="Promote"),
             ObjectList(
@@ -132,6 +91,24 @@ class FormPage(HoneypotMixin):
 ```
 
 You'll need to run `makemigrations` and `migrate` here
+
+### Add The Honeypot Template Tag to your form page template
+
+To render the honeypot fields in your form page template use the provided template tag.
+
+```html
+{% load honeypot_tags %}
+```
+
+and add the Honeypot fields template tag anywhere inside the form
+
+```html
+<form>
+...
+{% honeypot_fields page.honeypot %}
+...
+</form>
+```
 
 **Create a form page and enable the Honeypot protection.**
 
