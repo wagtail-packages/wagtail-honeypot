@@ -11,7 +11,8 @@ from wagtail.contrib.forms.models import AbstractEmailForm, AbstractFormField
 from wagtail.fields import RichTextField
 from wagtail.models import Page
 
-from wagtail_honeypot.models import HoneypotMixin
+# from wagtail_honeypot.models import HoneypotMixin
+from wagtail_honeypot.models import HoneypotFormMixin, HoneypotFormSubmissionMixin
 
 
 class HomePage(Page):
@@ -22,7 +23,7 @@ class FormField(AbstractFormField):
     page = ParentalKey("FormPage", related_name="form_fields")
 
 
-class FormPage(HoneypotMixin):
+class FormPage(HoneypotFormMixin, HoneypotFormSubmissionMixin):
     intro = RichTextField(blank=True)
     thank_you_text = RichTextField(blank=True)
 
@@ -44,10 +45,17 @@ class FormPage(HoneypotMixin):
         ),
     ]
 
+    honeypot_panels = [
+        MultiFieldPanel(
+            [FieldPanel("honeypot")],
+            heading="Reduce Form Spam",
+        )
+    ]
+
     edit_handler = TabbedInterface(
         [
             ObjectList(content_panels, heading="Content"),
-            ObjectList(HoneypotMixin.honeypot_panels, heading="Honeypot"),
+            ObjectList(honeypot_panels, heading="Honeypot"),
             ObjectList(Page.promote_panels, heading="Promote"),
             ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
         ]

@@ -2,24 +2,24 @@ import time
 
 from django.conf import settings
 from django.db import models
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
 from wagtail.contrib.forms.models import AbstractEmailForm
 
 
-class HoneypotMixin(AbstractEmailForm):
-    honeypot = models.BooleanField(default=False, verbose_name="Honeypot Enabled")
+class HoneypotFormMixin(models.Model):
+    """
+    Model to provide the honeypot field
+    """
 
-    honeypot_panels = [
-        MultiFieldPanel(
-            [
-                FieldPanel("honeypot"),
-            ],
-            heading="Reduce Form Spam",
-        )
-    ]
+    honeypot = models.BooleanField(default=False, verbose_name="Honeypot Enabled")
 
     class Meta:
         abstract = True
+
+
+class HoneypotFormSubmissionMixin(AbstractEmailForm):
+    """
+    Adds the overridden process_form_submission method to your form model
+    """
 
     def process_form_submission(self, form):
         honeypot_name = getattr(settings, "HONEYPOT_NAME", "whf_name")
@@ -46,3 +46,6 @@ class HoneypotMixin(AbstractEmailForm):
         now_time = str(time.time()).split(".")[0]
         diff = abs(int(now_time) - int(value))
         return True if diff > interval else False
+
+    class Meta:
+        abstract = True
