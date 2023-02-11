@@ -1,0 +1,16 @@
+tasks:
+  - name: Setup dependencies and run app
+    init: |
+      poetry export -f requirements.txt --output requirements.gitpod --without-hashes
+      echo 'CSRF_TRUSTED_ORIGINS = ["https://*.gitpod.io"]' >> tests/gitpod_settings.py
+    command: |
+      pip install -U pip
+      pip install -r requirements.gitpod
+      python manage.py migrate
+      echo "from django.contrib.auth import get_user_model; get_user_model().objects.create_superuser('admin', '', 'admin')" | python manage.py shell
+      python manage.py runserver 0.0.0.0:8000
+ports:
+  - port: 8000
+    onOpen: open-preview
+    name: Demo
+    description: Preview

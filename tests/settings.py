@@ -122,3 +122,8 @@ try:
     from .local import *  # noqa
 except ImportError:
     pass
+
+try:
+    from .gitpod_settings import *  # noqa
+except ImportError:
+    pass
