@@ -22,9 +22,9 @@ class HoneypotFormSubmissionMixin(AbstractEmailForm):
     """
 
     def process_form_submission(self, form):
-        honeypot_name = getattr(settings, "HONEYPOT_NAME", "whf_name")
-        honeypot_time = getattr(settings, "HONEYPOT_TIME", "whf_time")
-        honeypot_interval = getattr(settings, "HONEYPOT_INTERVAL", 3)
+        honeypot_name_field = getattr(settings, "HONEYPOT_NAME_FIELD", "whf_name")
+        honeypot_time_field = getattr(settings, "HONEYPOT_TIME_FIELD", "whf_time")
+        honeypot_time_interval = getattr(settings, "HONEYPOT_TIME_INTERVAL", 3)
 
         # honey pot disabled
         if not self.honeypot:
@@ -32,9 +32,11 @@ class HoneypotFormSubmissionMixin(AbstractEmailForm):
 
         # honeypot enabled
         score = []
-        if honeypot_name in form.data and honeypot_time in form.data:
-            score.append(form.data[honeypot_name] == "")
-            score.append(self.time_diff(form.data[honeypot_time], honeypot_interval))
+        if honeypot_name_field in form.data and honeypot_time_field in form.data:
+            score.append(form.data[honeypot_name_field] == "")
+            score.append(
+                self.time_diff(form.data[honeypot_time_field], honeypot_time_interval)
+            )
             return (
                 super().process_form_submission(form)
                 if len(score) and all(score)
