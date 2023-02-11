@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load wagtailcore_tags honeypot_tags %}
+{% load wagtailcore_tags honeypot_tags static %}
 
 {% block content %}
   <h1>{{ page.title }}</h1>
@@ -13,24 +13,9 @@
 {% endblock %}
 
 {% block extra_js %}
-  <script>
-    var whf_name = "whf_name";
-    var data_whf_name = "[data-" + whf_name + "]";
-
-    document.querySelectorAll(data_whf_name).forEach(function(el) {
-        el.classList.add(whf_name);
-        el.setAttribute("style", "position: absolute;top: 0;left: 0;margin-left: 100%;");
-    });
-  </script>
+<script src="{% static 'js/honeypot.js' %}"></script>
 {% endblock extra_js %}
 
 {% block extra_css %}
-  <style>
-    input[data-whf_name] {
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin-left: 100vw;
-    }
-  </style>
+<link rel="stylesheet" href="{% static 'css/honeypot.css' %}">
 {% endblock extra_css %}

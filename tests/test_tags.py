@@ -16,8 +16,8 @@ class TestHoneypotTemplateTags(TestCase):
         when the honeypot is enabled
         """
         fields_data = honeypot_fields(True)
-        self.assertEqual(fields_data["honeypot_name"], "whf_name")
-        self.assertEqual(fields_data["honeypot_time"], "whf_time")
+        self.assertEqual(fields_data["honeypot_name_field"], "whf_name")
+        self.assertEqual(fields_data["honeypot_time_field"], "whf_time")
         self.assertIsInstance(int(fields_data["time"]), int)
         self.assertTrue(fields_data["enabled"])
 
