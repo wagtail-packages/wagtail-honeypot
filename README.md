@@ -14,13 +14,13 @@ When the Wagtail Form is submitted and the honeypot protection is enabled, the h
 
 If the form is submitted with content in the hidden field or before the interval expires the submission is ignored.
 
-- No email is sent
-- No submission is stored
-- The thank you page is always shown if available.
-
-View the custom [HoneypotMixin](./wagtail_honeypot/models.py) for more information.
+> No email is sent  
+No submission is stored  
+The thank you page is always shown if available.
 
 ## Installation and setup
+
+Add the package to your python environment.
 
 ```bash
 pip install wagtail-honeypot
@@ -36,11 +36,9 @@ INSTALLED_APPS = [
 ]
 ```
 
-**A working minimal Wagtail example can inspected see [here](./tests/testapp/)**
+### The HoneypotFormMixin & HoneypotFormSubmissionMixin
 
-### Use The Honeypot Model Mixins
-
-The mixins add a honeypot enable/disable checkbox to your form page model and custom form submission method.
+They will add a [honeypot enable/disable](./wagtail_honeypot/models.py#L13) field to your form page model and [custom form submission](./wagtail_honeypot/models.py#L24) method.
 
 If you follow the official Wagtail docs for the [Form Builder](https://docs.wagtail.org/en/stable/reference/contrib/forms/index.html) your form should look something like this...
 
@@ -94,20 +92,31 @@ class FormPage(HoneypotFormMixin, HoneypotFormSubmissionMixin):
 If you prefer you could add the honeypot field to the content_panels rather than a new Tab
 
 ```python
+# replace
+edit_handler = TabbedInterface(
+        [
+            ObjectList(content_panels, heading="Content"),
+            ObjectList(honeypot_panels, heading="Honeypot"),
+            ObjectList(Page.promote_panels, heading="Promote"),
+            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
+        ]
+    )
+
+# with
 content_panels = content_panels + honeypot_panels
 ```
 
-You'll need to run `makemigrations` and `migrate` here
+*Run `python manage.py makemigrations` and `python manage.py migrate` here*
 
-### Add The Honeypot Template Tag to your form page template
+### Honeypot Template Tag
 
-To render the honeypot fields in your form page template use the provided template tag.
+Add the following template tag loader to your form page.
 
 ```html
 {% load honeypot_tags %}
 ```
 
-and add the Honeypot fields template tag anywhere inside the form
+Add the Honeypot fields template tag anywhere inside the form
 
 ```html
 <form>
@@ -117,35 +126,49 @@ and add the Honeypot fields template tag anywhere inside the form
 </form>
 ```
 
-**Create a form page and enable the Honeypot protection.**
+In your Wagtail site you should now be able to add a new form page, *enable the honeypot field*.
+
+Test that the honey pot field works
+
+> View the newly created form page.  
+The honeypot field is visible and could be submitted with any value.  
+Test it out by submitting the form with the honeypot field set to any value.  
+It won't save the form submission or send an email if you have enabled that in your form page.
 
 ## Hide the Honeypot field
 
-View the newly created form page. You will see that the honeypot field is visible and could be submitted with any value. That would block the form submission and that's how it should work.
-
-You can try it out by submitting the form with the honeypot field set to any value. It won't save the form submission or send it as an email if you have enabled that in your form page.
+The honeypot field should be invisible to when viewed in a browser.
 
 ### Use CSS & JS to hide the honeypot field
 
-Add the following CSS and JS to your form template
+The package has some basic css and javascript you can use to hide the field.
+
+Example: add the following to your form template.
 
 ```html
-{% block extra_js %}
-<script src="{% static 'js/honeypot.js' %}"></script>
-{% endblock extra_js %}
+<!-- recommended:
+to add both but you can use one or the other -->
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/honeypot.css' %}">
 {% endblock extra_css %}
+
+<!-- alternative:
+but without the css above loaded first
+the field could be seen for a flash while the page loads -->
+
+{% block extra_js %}
+<script src="{% static 'js/honeypot.js' %}"></script>
+{% endblock extra_js %}
 ```
 
-The end result is the field should be visibly hidden and not be available to receive any value from a site visitor.
+The field should be visibly hidden and not be available to receive any value from a site visitor.
 
-When rendered, the fields will have the HTML attributes `tabindex="-1" autocomplete="off"` to prevent a site visitor from using the tab key to move to the field and disable any autocomplete browser functions.
+> When rendered, the fields will have the HTML attributes `tabindex="-1" autocomplete="off"` to prevent a site visitor from using the tab key to move to the field and disable any autocomplete browser functions.
 
-A more complete example is [form_page.html](wagtail_honeypot/templates/wagtail_honeypot_test/form_page.html) in the test app.
+## Developer Documentation
 
-[View Developer Docs](docs/developer.md) for detailed help.
+[Developer Docs](docs/developer.md) for detailed help.
 
 ## Versions
 
