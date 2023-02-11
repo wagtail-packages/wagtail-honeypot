@@ -1,3 +1,9 @@
+ports:
+  - port: 8000
+    onOpen: open-preview
+    name: Demo
+    description: Preview
+    
 tasks:
   - name: Setup dependencies and run app
     init: |
@@ -6,11 +12,6 @@ tasks:
     command: |
       pip install -U pip
       pip install -r requirements.gitpod
-      python manage.py migrate
-      echo "from django.contrib.auth import get_user_model; get_user_model().objects.create_superuser('admin', '', 'admin')" | python manage.py shell
-      python manage.py runserver 0.0.0.0:8000
-ports:
-  - port: 8000
-    onOpen: open-preview
-    name: Demo
-    description: Preview
+      python3 manage.py migrate
+      echo "from django.contrib.auth import get_user_model; get_user_model().objects.create_superuser('admin', '', 'admin')" | python3 manage.py shell
+      python3 manage.py runserver 0.0.0.0:8000

@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 SECRET_KEY = "secret"
 DEBUG = True
-ALLOWED_HOSTS = ["localhost", "testserver"]
+ALLOWED_HOSTS = ["*"]
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 INSTALLED_APPS = [
