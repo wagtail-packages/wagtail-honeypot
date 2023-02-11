@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 - Drop older supported versions
 - Add python 3.11
 - Remove pre-commit in CI
+- Improve developer docs and setup
 
 ## [1.0.0] - 2022-09-10
 - [#15](https://github.com/nickmoreton/wagtail-honeypot/pull/15) Add Wagtail 3/4 support and improve developer documentation and tools
