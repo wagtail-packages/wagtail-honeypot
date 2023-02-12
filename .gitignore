@@ -164,3 +164,4 @@ cython_debug/
 requirements.gitpod
 gitpod_settings.py
 local.py
+wagtail_honeypot.db
