@@ -102,6 +102,18 @@ if os.getenv("DATABASE") == "postgres":
         }
     }
 
+if os.getenv("DATABASE") == "mysql":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.mysql",
+            "NAME": os.getenv("DB_NAME", "mysql"),
+            "USER": os.getenv("DB_USER", "root"),
+            "PASSWORD": os.getenv("DB_PASSWORD", "mysql"),
+            "HOST": os.getenv("DB_HOST", "127.0.0.1"),
+            "PORT": os.getenv("DB_PORT", "3306"),
+        }
+    }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
