@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wagtail-honeypot"
-version = "1.0.0"
+version = "1.1.0"
 description = "Use this package to add optional honeypot protection to your Wagtail forms."
 authors = ["Nick Moreton <nickmoreton@me.com>"]
 license = "MIT"
