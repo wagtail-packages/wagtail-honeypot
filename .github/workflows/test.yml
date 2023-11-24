@@ -16,7 +16,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python: ["3.8", "3.9", "3.10", "3.11"]
         database: ["sqlite"]
 
     steps:
@@ -47,7 +47,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python: ["3.8", "3.9", "3.10", "3.11"]
         database: ["postgres"]
 
     services:
@@ -95,7 +95,7 @@ jobs:
     strategy:
       max-parallel: 2
       matrix:
-        python: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python: ["3.8", "3.9", "3.10", "3.11"]
         database: ["mysql"]
 
     services:
