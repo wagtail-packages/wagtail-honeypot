@@ -30,10 +30,7 @@ dependencies =[
 
 [project.optional-dependencies]
 development = [
-    "black==23.1.0",
-    "tox==4.4.4",
-    "coverage==7.1.0",
-    "flake8==6.0.0",
-    "isort==5.0.0",
-    "pre-commit==3.0.0",
+    "black==23.7.0",
+    "flake8==6.1.0",
+    "isort==5.12.0",
 ]
