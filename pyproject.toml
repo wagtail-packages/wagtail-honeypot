@@ -1,48 +1,39 @@
-[tool.poetry]
+[project]
 name = "wagtail-honeypot"
 version = "1.1.0"
 description = "Use this package to add optional honeypot protection to your Wagtail forms."
-authors = ["Nick Moreton <nickmoreton@me.com>"]
-license = "MIT"
+authors = [
+    {name = "Nick Moreton", email = "nickmoreton@me.com"}
+]
+license = {file = "LICENSE"}
 classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Framework :: Django",
     "Framework :: Django :: 3.2",
-    "Framework :: Django :: 4.0",
     "Framework :: Django :: 4.1",
+    "Framework :: Django :: 4.2",
     "Framework :: Wagtail",
     "Framework :: Wagtail :: 4",
+    "Framework :: Wagtail :: 5",
+]
+requires-python = ">=3.8"
+dependencies =[
+    "Wagtail>=4.1",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.7"
-wagtail = ">=4.1"
-
-[tool.poetry.group.dev.dependencies]
-black = "^23.1.0"
-tox = "^4.4.4"
-coverage = "^7.1.0"
-
-[tool.poetry.group.dev.dependencies.flake8]
-version = ">=6.0.0"
-python = "^3.8.1"
-
-[tool.poetry.group.dev.dependencies.isort]
-version = ">=5.0.0"
-python = "^3.8"
-
-[tool.poetry.group.dev.dependencies.pre-commit]
-version = ">=3.0.0"
-python = "^3.8"
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[project.optional-dependencies]
+development = [
+    "black==23.1.0",
+    "tox==4.4.4",
+    "coverage==7.1.0",
+    "flake8==6.0.0",
+    "isort==5.0.0",
+    "pre-commit==3.0.0",
+]
