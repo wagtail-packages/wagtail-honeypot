@@ -2,6 +2,12 @@
 
 ## Development Setup
 
+With a virtual environment activated, install the package in editable mode:
+
+```bash
+pip install -e "[.development]"
+```
+
 There is a [testapp](../tests/testapp/) provided that is a fully configured minimal setup using Wagtail v4.2
 
 Setup the app:
