@@ -174,7 +174,7 @@ The field should be visibly hidden and not be available to receive any value fro
 
 Wagtail honey pot can be used in environments:
 
-- Python 3.7+
+- Python 3.8+
 - Django 3.2+
 - Wagtail 4.1+
 
