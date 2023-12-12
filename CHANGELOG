@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Update pr-commit config
+- Fix typo in docs
+
 ## [1.1.0] - 2023-02-12
 
 - Drop older supported versions
