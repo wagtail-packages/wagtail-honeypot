@@ -1,6 +1,6 @@
 [project]
 name = "wagtail-honeypot"
-version = "1.1.0"
+version = "1.2.0"
 description = "Use this package to add optional honeypot protection to your Wagtail forms."
 authors = [
     {name = "Nick Moreton", email = "nickmoreton@me.com"}
@@ -11,21 +11,20 @@ classifiers = [
     "Operating System :: OS Independent",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
     "Framework :: Django",
-    "Framework :: Django :: 3.2",
-    "Framework :: Django :: 4.1",
     "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
     "Framework :: Wagtail",
     "Framework :: Wagtail :: 4",
     "Framework :: Wagtail :: 5",
 ]
-requires-python = ">=3.8"
+requires-python = ">=3.9"
 dependencies =[
-    "Wagtail>=4.1",
+    "Wagtail>=5.1,<6.0",
 ]
 
 [project.optional-dependencies]
