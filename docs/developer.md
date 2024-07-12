@@ -8,7 +8,7 @@ With a virtual environment activated, install the package in editable mode:
 pip install -e ".[development]"
 ```
 
-There is a [testapp](../tests/testapp/) provided that is a fully configured minimal setup using Wagtail v4.2
+There is a [testapp](../tests/testapp/) provided that is a fully configured minimal setup using Wagtail v5.1+
 
 Setup the app:
 
@@ -32,8 +32,6 @@ make run
 
 View the site at `http://localhost:8000` or add `/admin` to login.
 
-> You can see if emails are sent or not via the console.
-
 ### A convenient SMTP server
 
 If you have docker and docker-compose installed
@@ -42,8 +40,7 @@ If you have docker and docker-compose installed
 make mail
 ```
 
-> Will spin up a Mailhog instance and simulate a `real` email inbox.  
-and will add a local.py file to settings in the test app settings with the correct EMAIL_BACKEND and credentials  
+> Will spin up a Mailhog instance and simulate a `real` email inbox.
 View the Mailhog app in your browser at `http://localhost:8025`
 
 Now when you submit the form with settings to send the notification email you will see the email in the Mailhog inbox
