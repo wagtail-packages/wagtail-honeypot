@@ -2,7 +2,6 @@ run:
 	python manage.py runserver 0:8000
 
 mail:
-	cp tests/local.py.example tests/local.py
 	docker run -p 8025:8025 -p 1025:1025 mailhog/mailhog
 
 test:

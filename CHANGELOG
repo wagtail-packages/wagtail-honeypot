@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Upgrade for Wagtail 5.2+ & Django 4.2+
 - Update pr-commit config
 - Fix typo in docs
 
