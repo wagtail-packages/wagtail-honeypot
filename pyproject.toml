@@ -1,7 +1,9 @@
 [project]
 name = "wagtail-honeypot"
 version = "1.2.0"
-description = "Use this package to add optional honeypot protection to your Wagtail forms."
+description = "Add optional honeypot protection to your Wagtail forms."
+readme = "README.md"
+keywords = ["wagtail", "honeypot", "forms", "spam"]
 authors = [
     {name = "Nick Moreton", email = "nickmoreton@me.com"}
 ]
@@ -35,3 +37,8 @@ development = [
     "django-upgrade",
     "pyupgrade",
 ]
+
+[project.urls]
+Repository = "https://github.com/wagtail-packages/wagtail-honeypot"
+Issues = "https://github.com/wagtail-packages/wagtail-honeypot/issues"
+Changelog = "https://github.com/wagtail-packages/wagtail-honeypot/blob/release/CHANGELOG"
