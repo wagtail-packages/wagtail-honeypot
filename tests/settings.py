@@ -18,7 +18,21 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 SECRET_KEY = "secret"
 DEBUG = True
 ALLOWED_HOSTS = ["*"]
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# Package test settings
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "127.0.0.1"
+EMAIL_PORT = 1025
+EMAIL_HOST_USER = ""
+EMAIL_HOST_PASSWORD = ""
+EMAIL_USE_TLS = False
+
+DEFAULT_FROM_EMAIL = "foo@localhost"
+
+# honeypot default settings
+HONEYPOT_NAME_FIELD = "whf_name"
+HONEYPOT_TIME_FIELD = "whf_time"
+HONEYPOT_TIME_INTERVAL = 3  # minimum time taken to fill out the form in seconds
 
 INSTALLED_APPS = [
     "wagtail_honeypot",
@@ -27,17 +41,12 @@ INSTALLED_APPS = [
     "wagtail.contrib.search_promotions",
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
-    "wagtail.embeds",
     "wagtail.users",
     "wagtail.snippets",
     "wagtail.documents",
     "wagtail.images",
     "wagtail.search",
     "wagtail.admin",
-    "wagtail.api.v2",
-    "wagtail.contrib.modeladmin",
-    "wagtail.contrib.routable_page",
-    "wagtail.contrib.styleguide",
     "wagtail.sites",
     "wagtail",
     "taggit",
@@ -145,10 +154,5 @@ WAGTAILADMIN_BASE_URL = "http://localhost:8000"
 
 try:
     from .local import *  # noqa
-except ImportError:
-    pass
-
-try:
-    from .gitpod_settings import *  # noqa
 except ImportError:
     pass

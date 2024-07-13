@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+## [1.2.0] - 2024-07-13
+
+- Upgrade for Wagtail 6.1 & Django 5.0
+- Upgrade for Wagtail 5.2+ & Django 4.2+
+- Update pr-commit config
+- Fix typo in docs
+
 ## [1.1.0] - 2023-02-12
 
 - Drop older supported versions

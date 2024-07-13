@@ -14,9 +14,8 @@ jobs:
   test-sqlite:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 2
       matrix:
-        python: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python: ["3.9", "3.10", "3.11", "3.12"]
         database: ["sqlite"]
 
     steps:
@@ -45,9 +44,8 @@ jobs:
   test-postgres:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 2
       matrix:
-        python: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python: ["3.12"]
         database: ["postgres"]
 
     services:
@@ -93,14 +91,13 @@ jobs:
   test-mysql:
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 2
       matrix:
-        python: ["3.7", "3.8", "3.9", "3.10", "3.11"]
+        python: ["3.12"]
         database: ["mysql"]
 
     services:
       mariadb:
-        image: mariadb
+        image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: mysql
         options: >-

@@ -1,22 +1,21 @@
 # Wagtail Honeypot
 
-Use this package to add optional honeypot protection to your Wagtail forms.
-
 ![Alt text](docs/sample.jpg?raw=true "Title")
+
+## Add optional form spam protection to your Wagtail forms
 
 It should help to reduce form spam by tricking bots into submitting data in fields that should remain empty.
 
-The package provides validation that a hidden text field that should remain empty and checks a time interval between the form being displayed and submitted.
-
-## How it works
+### How it works
 
 When the Wagtail Form is submitted and the honeypot protection is enabled, the honeypot fields & values are available in the `POST` data.
 
+It provides validation for a hidden text field that should remain empty and checks a time interval between the form being displayed and submitted.
+
 If the form is submitted with content in the hidden field or before the interval expires the submission is ignored.
 
-> No email is sent  
-No submission is stored  
-The thank you page is always shown if available.
+- No email is sent
+- No submission is stored
 
 ## Installation and setup
 
@@ -130,10 +129,9 @@ In your Wagtail site you should now be able to add a new form page, *enable the 
 
 Test that the honey pot field works
 
-> View the newly created form page.  
-The honeypot field is visible and could be submitted with any value.  
-Test it out by submitting the form with the honeypot field set to any value.  
-It won't save the form submission or send an email if you have enabled that in your form page.
+1. View the newly created form page.  
+2. The honeypot field is visible and could be submitted with any value.  
+3. Test it out by submitting the form with the honeypot field set to any value. It won't save the form submission or send an email if you have enabled that in your form page.
 
 ## Hide the Honeypot field
 
@@ -174,9 +172,9 @@ The field should be visibly hidden and not be available to receive any value fro
 
 Wagtail honey pot can be used in environments:
 
-- Python 3.7+
-- Django 3.2+
-- Wagtail 4.1+
+- Python 3.9+
+- Django 4.2+
+- Wagtail 5.1+
 
 ## Contributions
 

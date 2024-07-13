@@ -2,12 +2,12 @@ import time
 
 from django.test import TestCase
 from wagtail.contrib.forms.models import FormSubmission
+from wagtail.models import Page
 
-from tests.testapp.models import FormPage
+from tests.testapp.models import FormField, FormPage
 
 
 class TestHoneypotFormDisabled(TestCase):
-    fixtures = ["dump.json"]
 
     def setUp(self):
         """
@@ -15,15 +15,37 @@ class TestHoneypotFormDisabled(TestCase):
 
         So nothing is blocking the form submission
         """
-        form_page = FormPage.objects.get(slug="formpage")
-        form_page.honeypot = False
-        form_page.save()
+        # Get the site root page -> home page
+        root_page = Page.objects.get(id=1)
+        home_page = root_page.get_children().first()
+
+        # Initialse a form page
+        form_page = FormPage(
+            title="Form Page",
+            slug="formpage",
+            honeypot=False,
+            thank_you_text="Thank you for your message",
+        )
+
+        # Add the form page as a child of the home page
+        home_page.add_child(instance=form_page)
+
+        # Add the form fields
+        FormField.objects.create(
+            page=form_page, label="Name", field_type="singleline", required=True
+        )
+        FormField.objects.create(
+            page=form_page, label="Email Address", field_type="email", required=True
+        )
+        FormField.objects.create(
+            page=form_page, label="Message", field_type="multiline", required=True
+        )
+
+        form_page.save_revision().publish()
 
     def test_form_submission(self):
         """
-        Test that a form submission is successful
-
-        When the honeypot is disabled
+        Test that a form submission is successful. When the honeypot is disabled
         """
         resp = self.client.post(
             "/formpage/",
@@ -41,7 +63,6 @@ class TestHoneypotFormDisabled(TestCase):
 
 
 class TestHoneypotFormEnabled(TestCase):
-    fixtures = ["dump.json"]
 
     def setUp(self):
         """
@@ -49,9 +70,34 @@ class TestHoneypotFormEnabled(TestCase):
 
         So the form submission can be ignored when necessary
         """
-        form_page = FormPage.objects.get(slug="formpage")
-        form_page.honeypot = True
-        form_page.save()
+        # Get the site root page -> home page
+        root_page = Page.objects.get(id=1)
+        home_page = root_page.get_children().first()
+
+        # Initialse a form page
+        form_page = FormPage(
+            title="Form Page",
+            slug="formpage",
+            honeypot=True,
+            thank_you_text="Thank you for your message",
+        )
+
+        # Add the form page as a child of the home page
+        home_page.add_child(instance=form_page)
+
+        # Add the form fields
+        FormField.objects.create(
+            page=form_page, label="Name", field_type="singleline", required=True
+        )
+        FormField.objects.create(
+            page=form_page, label="Email Address", field_type="email", required=True
+        )
+        FormField.objects.create(
+            page=form_page, label="Message", field_type="multiline", required=True
+        )
+
+        form_page.save_revision().publish()
+
         self.form_view_time = int(str(time.time()).split(".")[0])
 
     def test_form_submission(self):
