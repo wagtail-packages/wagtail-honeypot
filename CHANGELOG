@@ -6,8 +6,12 @@ All notable changes to this project will be documented in this file.
 
 - Add Wagtail 7.4 testing coverage across its supported Django and Python versions.
 - Refresh locked development dependencies, pre-commit hooks, GitHub Actions, and MySQL CI to current releases.
+
+## [1.3.1] - 2026-07-16
+
 - Ignore malformed honeypot timestamps instead of raising an exception.
 - Update contributor branch workflow guidance and PR CI to target `main`.
+- Report the current package version from `wagtail_honeypot.__version__`.
 
 ## [1.3.0] - 2026-04-21
 
