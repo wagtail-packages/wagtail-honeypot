@@ -22,12 +22,14 @@
 ### Task 1: Fail Closed for Malformed Honeypot Timestamps
 
 **Files:**
+
 - Modify: `tests/test_methods.py:19-31`
 - Modify: `tests/test_form.py:93-103`
 - Modify: `wagtail_honeypot/models.py:44-48`
 - Modify: `CHANGELOG:5-8`
 
 **Interfaces:**
+
 - Consumes: `HoneypotFormSubmissionMixin.time_diff(value, interval)` and the existing `HoneypotFormPageTestCase.post_form(**overrides)` helper.
 - Produces: unchanged `time_diff(value, interval) -> bool`; values that cannot be converted with `int(value)` produce `False`.
 
