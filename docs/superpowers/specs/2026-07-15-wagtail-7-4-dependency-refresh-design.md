@@ -2,15 +2,14 @@
 
 ## Goal
 
-Add explicit support and test coverage for Wagtail 7.4 LTS while refreshing every maintained dependency surface in the repository: the default development environment, the universal lockfile, pre-commit hooks, GitHub Actions, and CI database services.
+Release version 1.4.0 with support and test coverage focused on Wagtail 7.4 LTS while refreshing every maintained dependency surface in the repository: the default development environment, the universal lockfile, pre-commit hooks, GitHub Actions, and CI database services.
 
 ## Compatibility Policy
 
-- Preserve the published runtime requirements of Python 3.10 or newer and Wagtail 6.3 or newer.
-- Preserve the existing Wagtail 6.3 and 7.0-7.3 tox coverage; this upgrade does not intentionally remove backward compatibility.
-- Add Wagtail 7.4 only with combinations supported by Wagtail itself. Wagtail 7.4 supports Django 5.2 and 6.0 on Python 3.10-3.14, while Django 6.0 itself requires Python 3.12 or newer.
-- Keep Django 4.2 coverage for older supported Wagtail releases, but never combine Django 4.2 with Wagtail 7.4.
-- Do not change package version metadata, release tags, migrations, or public honeypot behavior.
+- Preserve the published runtime requirement of Python 3.10 or newer.
+- Support only Wagtail 7.4 with Django 5.2 or 6.0. Wagtail 7.4 supports Python 3.10-3.14, while Django 6.0 itself requires Python 3.12 or newer.
+- Remove classifiers, dependency ranges, documentation claims, and tox factors for older Django and Wagtail versions. Developers needing those versions can install an earlier package release.
+- Set package version metadata to 1.4.0. Do not change release tags, migrations, or public honeypot behavior.
 
 Wagtail's official compatibility table and 7.4 upgrade notes are the authority for these constraints:
 
@@ -30,7 +29,7 @@ Two alternatives were rejected:
 
 ### Default development environment
 
-Update `pyproject.toml` so the dev group uses `Wagtail>=7.4,<7.5` with the existing `Django>=6.0,<6.1` constraint. Keep the package dependency `Wagtail>=6.3` and all Python and framework classifiers unchanged.
+Update `pyproject.toml` so both the runtime dependency and dev group use `Wagtail>=7.4,<7.5` with the existing `Django>=6.0,<6.1` development constraint. Remove Django 4.2, Django 5.1, and Wagtail 6 classifiers, retain supported Python classifiers, and set the package version to 1.4.0.
 
 Refresh direct development tools to the current stable versions identified on 2026-07-15:
 
@@ -61,7 +60,7 @@ Add SQLite coverage for these combinations:
 | 3.10, 3.11 | 5.2 | 7.4 |
 | 3.12, 3.13, 3.14 | 5.2, 6.0 | 7.4 |
 
-Keep all existing SQLite factors for Wagtail 6.3-7.3. Move the PostgreSQL and MySQL factors from `py314-django60-wagtail73` to `py314-django60-wagtail74` so the non-SQLite smoke tests exercise the newest compatibility line without increasing database-job count.
+Remove the older Django and Wagtail factors. Run PostgreSQL and MySQL smoke tests on `py314-django60-wagtail74` so non-SQLite coverage exercises the default compatibility line.
 
 The package passed all tests in diagnostic runs on Python 3.10/Django 5.2/Wagtail 7.4 and Python 3.14/Django 6.0/Wagtail 7.4. No package implementation or test assertion changes are designed. Existing Treebeard manager warnings and the missing `tests/static` warning are not introduced by Wagtail 7.4 and remain outside this dependency upgrade.
 
@@ -97,9 +96,8 @@ Do not redesign the workflow structure or alter release behavior beyond action-v
 ### Documentation and changelog
 
 - Update `docs/developer.md` so the default local stack is Python 3.12, Django 6.0, and Wagtail 7.4.
-- Update the test-app baseline wording from Wagtail 6.3+ only if needed for clarity; the public minimum remains Wagtail 6.3.
-- Add a short, flat `CHANGELOG` entry under `## Unreleased` covering Wagtail 7.4 test support and the dependency/tooling refresh.
-- Leave the README compatibility statement unchanged because the supported lower bounds do not change.
+- Update the test-app baseline and README compatibility wording to Wagtail 7.4 and Django 5.2/6.0.
+- Add short, flat `CHANGELOG` entries under `## Unreleased` covering version 1.4.0, the narrower support policy, and the dependency/tooling refresh.
 
 ## Verification
 
@@ -111,13 +109,13 @@ Run verification in increasing scope:
 4. `uv run coverage run manage.py test` followed by `uv run coverage report` for the default Wagtail 7.4 stack.
 5. Run every new Wagtail 7.4 SQLite factor explicitly, including both Django lines and all supported Python versions.
 6. Run `py314-django60-wagtail74-postgres` and `py314-django60-wagtail74-mysql` where those services are available.
-7. Run `uv run tox --skip-missing-interpreters` to exercise the complete locally available compatibility matrix.
+7. Run `uv run tox --skip-missing-interpreters` to exercise the eight-environment SQLite matrix.
 8. Review GitHub Actions results for the full hosted matrix and both database services before declaring the pull request ready.
 
 ## Success Criteria
 
 - Wagtail 7.4 is the default development version and has explicit tox coverage across every supported Python/Django combination.
-- Existing Wagtail 6.3-7.3 compatibility coverage remains present.
+- Runtime metadata and documentation support only Wagtail 7.4 with Django 5.2/6.0; earlier projects can remain on earlier package releases.
 - Direct Python tooling, transitive lockfile packages, pre-commit hooks, GitHub Actions, and the MySQL CI service are refreshed to the specified versions.
 - The default tests, lint, format check, pre-commit suite, Wagtail 7.4 tox factors, and hosted CI all pass without package behavior changes.
 - Developer documentation and the Unreleased changelog accurately describe the change.
