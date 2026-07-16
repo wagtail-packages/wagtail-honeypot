@@ -63,7 +63,7 @@ Add SQLite coverage for these combinations:
 
 Keep all existing SQLite factors for Wagtail 6.3-7.3. Move the PostgreSQL and MySQL factors from `py314-django60-wagtail73` to `py314-django60-wagtail74` so the non-SQLite smoke tests exercise the newest compatibility line without increasing database-job count.
 
-The package already passes all 15 tests in diagnostic runs on Python 3.10/Django 5.2/Wagtail 7.4 and Python 3.14/Django 6.0/Wagtail 7.4. No package implementation or test assertion changes are designed. Existing Treebeard manager warnings and the missing `tests/static` warning are not introduced by Wagtail 7.4 and remain outside this dependency upgrade.
+The package passed all tests in diagnostic runs on Python 3.10/Django 5.2/Wagtail 7.4 and Python 3.14/Django 6.0/Wagtail 7.4. No package implementation or test assertion changes are designed. Existing Treebeard manager warnings and the missing `tests/static` warning are not introduced by Wagtail 7.4 and remain outside this dependency upgrade.
 
 ### Pre-commit hooks
 

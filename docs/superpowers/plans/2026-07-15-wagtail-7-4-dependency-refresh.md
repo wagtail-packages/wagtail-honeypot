@@ -117,7 +117,7 @@ Run:
 uv run tox -e py310-django52-wagtail74-sqlite,py311-django52-wagtail74-sqlite,py312-django52-wagtail74-sqlite,py312-django60-wagtail74-sqlite,py313-django52-wagtail74-sqlite,py313-django60-wagtail74-sqlite,py314-django52-wagtail74-sqlite,py314-django60-wagtail74-sqlite
 ```
 
-Expected: all eight environments run 15 tests and report `OK`. The known Treebeard manager and missing `tests/static` warnings may still appear.
+Expected: all eight environments run 17 tests and report `OK`. The known Treebeard manager and missing `tests/static` warnings may still appear.
 
 - [ ] **Step 7: Commit the compatibility matrix**
 
@@ -398,7 +398,7 @@ uv run tox --skip-missing-interpreters --skip-env '.*-(postgres|mysql)$'
 git diff --check
 ```
 
-Expected: lock, lint, formatting, hooks, the 15-test default suite, coverage report, and every locally available SQLite tox environment pass. GitHub Actions must run the PostgreSQL and MySQL test environments before PR readiness.
+Expected: lock, lint, formatting, hooks, the 17-test default suite, coverage report, and every locally available SQLite tox environment pass. GitHub Actions must run the PostgreSQL and MySQL test environments before PR readiness.
 
 - [ ] **Step 5: Commit documentation and changelog**
 

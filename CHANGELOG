@@ -4,6 +4,8 @@ All notable changes to this project will be documented in this file.
 
 ## Unreleased
 
+- Add Wagtail 7.4 testing coverage across its supported Django and Python versions.
+- Refresh locked development dependencies, pre-commit hooks, GitHub Actions, and MySQL CI to current releases.
 - Ignore malformed honeypot timestamps instead of raising an exception.
 - Update contributor branch workflow guidance and PR CI to target `main`.
 
