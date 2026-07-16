@@ -173,8 +173,10 @@ The field should be visibly hidden and not be available to receive any value fro
 Wagtail honey pot can be used in environments:
 
 - Python 3.10+
-- Django 4.2+
-- Wagtail 6.3+
+- Django 5.2 or 6.0
+- Wagtail 7.0 through 7.4
+
+Use a Django and Python version supported by the selected Wagtail release; see Wagtail's [compatible Django / Python versions](https://docs.wagtail.org/en/stable-7.4.x/releases/upgrading.html#compatible-django-python-versions).
 
 ## Contributions
 

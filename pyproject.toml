@@ -1,6 +1,6 @@
 [project]
 name = "wagtail-honeypot"
-version = "1.3.1"
+version = "1.4.0"
 description = "Add optional honeypot protection to your Wagtail forms."
 readme = "README.md"
 keywords = ["wagtail", "honeypot", "forms", "spam"]
@@ -19,17 +19,14 @@ classifiers = [
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "Framework :: Django",
-    "Framework :: Django :: 4.2",
-    "Framework :: Django :: 5.1",
     "Framework :: Django :: 5.2",
     "Framework :: Django :: 6.0",
     "Framework :: Wagtail",
-    "Framework :: Wagtail :: 6",
     "Framework :: Wagtail :: 7",
 ]
 requires-python = ">=3.10"
 dependencies =[
-    "Wagtail>=6.3",
+    "Wagtail>=7.0,<7.5",
 ]
 
 [dependency-groups]
@@ -38,10 +35,10 @@ dev = [
     "Django>=6.0,<6.1",
     "django-upgrade",
     "pre-commit",
-    "ruff==0.15.11",
+    "ruff==0.15.21",
     "tox",
     "tox-gh-actions",
-    "Wagtail>=7.3,<7.4",
+    "Wagtail>=7.0,<7.5",
 ]
 
 [project.urls]
