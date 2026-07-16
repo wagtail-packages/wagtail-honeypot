@@ -171,7 +171,11 @@ class HoneypotFormSubmissionMixin(AbstractEmailForm):
     @staticmethod
     def time_diff(value, interval):
         now_time = str(time.time()).split(".")[0]
-        diff = abs(int(now_time) - int(value))
+        try:
+            submitted_time = int(value)
+        except (TypeError, ValueError):
+            return False
+        diff = abs(int(now_time) - submitted_time)
         return True if diff > interval else False
 
     class Meta:
