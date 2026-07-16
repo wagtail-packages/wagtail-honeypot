@@ -41,7 +41,7 @@ dev = [
     "ruff==0.15.11",
     "tox",
     "tox-gh-actions",
-    "Wagtail>=7.3,<7.4",
+    "Wagtail>=7.4,<7.5",
 ]
 
 [project.urls]
