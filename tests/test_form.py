@@ -102,6 +102,13 @@ class TestHoneypotFormEnabled(HoneypotFormPageTestCase):
         self.assert_submission_count(0)
         self.assertContains(resp, "Thank you for your message")
 
+    def test_form_submission_is_ignored_when_honeypot_time_is_invalid(self):
+        for value in ("", "not-a-timestamp"):
+            with self.subTest(value=value):
+                resp = self.post_form(whf_time=value)
+                self.assert_submission_count(0)
+                self.assertContains(resp, "Thank you for your message")
+
     def test_form_submission_is_ignored_when_honeypot_text_is_filled(self):
         """
         Test that a form submission is unsuccessful

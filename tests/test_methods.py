@@ -29,3 +29,14 @@ class TestHoneypotMethods(TestCase):
         for label, submitted_time, expected in cases:
             with self.subTest(label=label):
                 self.assertEqual(self.form.time_diff(submitted_time, self.interval), expected)
+
+    def test_time_diff_rejects_invalid_values(self):
+        cases = [
+            ("empty string", ""),
+            ("non-numeric string", "not-a-timestamp"),
+            ("none", None),
+        ]
+
+        for label, submitted_time in cases:
+            with self.subTest(label=label):
+                self.assertFalse(self.form.time_diff(submitted_time, self.interval))
