@@ -26,7 +26,7 @@ classifiers = [
 ]
 requires-python = ">=3.10"
 dependencies =[
-    "Wagtail>=7.4,<7.5",
+    "Wagtail>=7.0,<7.5",
 ]
 
 [dependency-groups]
@@ -38,7 +38,7 @@ dev = [
     "ruff==0.15.21",
     "tox",
     "tox-gh-actions",
-    "Wagtail>=7.4,<7.5",
+    "Wagtail>=7.0,<7.5",
 ]
 
 [project.urls]

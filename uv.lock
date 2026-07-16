@@ -1029,7 +1029,7 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "wagtail", specifier = ">=7.4,<7.5" }]
+requires-dist = [{ name = "wagtail", specifier = ">=7.0,<7.5" }]
 
 [package.metadata.requires-dev]
 dev = [
@@ -1040,7 +1040,7 @@ dev = [
     { name = "ruff", marker = "python_full_version >= '3.12'", specifier = "==0.15.21" },
     { name = "tox", marker = "python_full_version >= '3.12'" },
     { name = "tox-gh-actions", marker = "python_full_version >= '3.12'" },
-    { name = "wagtail", marker = "python_full_version >= '3.12'", specifier = ">=7.4,<7.5" },
+    { name = "wagtail", marker = "python_full_version >= '3.12'", specifier = ">=7.0,<7.5" },
 ]
 
 [[package]]
