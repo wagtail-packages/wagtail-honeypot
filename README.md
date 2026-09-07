@@ -42,12 +42,12 @@ They will add a [honeypot enable/disable](./wagtail_honeypot/models.py#L13) fiel
 If you follow the official Wagtail docs for the [Form Builder](https://docs.wagtail.org/en/stable/reference/contrib/forms/index.html) your form should look something like this...
 
 ```python
-from wagtail_honeypot.models import (
-    HoneypotFormMixin, HoneypotFormSubmissionMixin
-)
+from wagtail_honeypot.models import HoneypotFormMixin, HoneypotFormSubmissionMixin
+
 
 class FormField(AbstractFormField):
     page = ParentalKey("FormPage", related_name="form_fields")
+
 
 class FormPage(HoneypotFormMixin, HoneypotFormSubmissionMixin):
     intro = RichTextField(blank=True)
@@ -93,13 +93,13 @@ If you prefer you could add the honeypot field to the content_panels rather than
 ```python
 # replace
 edit_handler = TabbedInterface(
-        [
-            ObjectList(content_panels, heading="Content"),
-            ObjectList(honeypot_panels, heading="Honeypot"),
-            ObjectList(Page.promote_panels, heading="Promote"),
-            ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
-        ]
-    )
+    [
+        ObjectList(content_panels, heading="Content"),
+        ObjectList(honeypot_panels, heading="Honeypot"),
+        ObjectList(Page.promote_panels, heading="Promote"),
+        ObjectList(Page.settings_panels, heading="Settings", classname="settings"),
+    ]
+)
 
 # with
 content_panels = content_panels + honeypot_panels

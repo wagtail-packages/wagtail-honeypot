@@ -119,7 +119,7 @@ You can change the time field name and/or the time interval by adding the follow
 
 ```python
 HONEYPOT_TIME_FIELD = "time-field-name"
-HONEYPOT_TIME_INTERVAL = 1 # seconds
+HONEYPOT_TIME_INTERVAL = 1  # seconds
 ```
 
 > The time field and checks a time interval between the form being displayed and submitted.  
@@ -159,14 +159,8 @@ class HoneypotFormSubmissionMixin(AbstractEmailForm):
         score = []
         if honeypot_name_field in form.data and honeypot_time_field in form.data:
             score.append(form.data[honeypot_name_field] == "")
-            score.append(
-                self.time_diff(form.data[honeypot_time_field], honeypot_time_interval)
-            )
-            return (
-                super().process_form_submission(form)
-                if len(score) and all(score)
-                else None
-            )
+            score.append(self.time_diff(form.data[honeypot_time_field], honeypot_time_interval))
+            return super().process_form_submission(form) if len(score) and all(score) else None
 
     @staticmethod
     def time_diff(value, interval):
@@ -180,5 +174,4 @@ class HoneypotFormSubmissionMixin(AbstractEmailForm):
 
     class Meta:
         abstract = True
-
 ```
